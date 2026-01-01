@@ -2,4 +2,9 @@ from django.apps import AppConfig
 
 
 class ScraperConfig(AppConfig):
-    name = 'scraper'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "scraper"
+
+    def ready(self):
+        # Import signals to ensure they are registered
+        import scraper.signals  # noqa
