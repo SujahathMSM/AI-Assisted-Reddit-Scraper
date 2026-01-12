@@ -1,11 +1,10 @@
-import logging
+from .tasks import trigger_scrape
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from .models import RedditCommunity
 
-logger = logging.getLogger(__name__)
 
 
 @receiver(post_save, sender=RedditCommunity)
@@ -20,7 +19,5 @@ def community_track_changed(sender, instance, created, **kwargs):
 
     # If tracking is enabled, this is where we would trigger scraping
     if instance.track:
-        logger.info(
-            f"[SIGNAL] Community '{instance.name}' is now tracked. "
-            f"Scraping job should be triggered."
-        )
+        trigger_scrape.delay(instance.id)
+
