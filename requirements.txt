@@ -6,3 +6,4 @@ celery
 redis
 httpx
 python-dotenv
+django-celery-beat

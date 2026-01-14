@@ -27,6 +27,8 @@ services:
       - db
       - redis
     environment:
+      - PYTHONPATH=/app
+      - DJANGO_SETTINGS_MODULE=project.settings
       - DATABASE_URL=postgres://postgres:postgres@db:5432/reddit_scraper
       - REDIS_URL=redis://redis:6379/0
     ports:
